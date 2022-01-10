@@ -1,18 +1,30 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import { CssForm, CssContactList } from 'сomponent';
 
 export function ContactList({ contact, onDelete }) {
   return (
-    <ul>
+    <CssContactList.ContactList>
       {contact.map(({ id, name, number }) => {
         return (
-          <li key={id}>
-            {name}: tel:<span>{number}</span>
-            <button type="button" name="del" onClick={() => onDelete(id)}>
+          <CssContactList.Contact key={id}>
+            <CssContactList.Name>{name}:</CssContactList.Name> tel:{' '}
+            <CssContactList.Number>{number}</CssContactList.Number>
+            <CssForm.Button
+              type="button"
+              name="del"
+              onClick={e => onDelete(e, id)}
+            >
               Delete
-            </button>
-          </li>
+            </CssForm.Button>
+          </CssContactList.Contact>
         );
       })}
-    </ul>
+    </CssContactList.ContactList>
   );
 }
+
+ContactList.protoType = {
+  contact: PropTypes.object.isRequired,
+  onDelete: PropTypes.func.isRequired,
+};

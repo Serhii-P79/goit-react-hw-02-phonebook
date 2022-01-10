@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { nanoid } from 'nanoid';
-import { ContactForm, Filter, ContactList } from 'сomponent';
+import { GlobalStyle } from './GLobalStyle';
+import { ContactForm, Filter, ContactList, CssApp } from 'сomponent';
 
 export class App extends Component {
   state = {
@@ -11,6 +12,13 @@ export class App extends Component {
       { id: 'id-4', name: 'Annie Copeland', number: '227-91-26' },
     ],
     filter: '',
+  };
+
+  checkContacts = nameForm => {
+    if (this.state.contacts.some(({ name }) => name === nameForm)) {
+      // alert(`${this.state.name} is already in contacts`);
+      return true;
+    }
   };
 
   formSubmitHandler = data => {
@@ -37,8 +45,12 @@ export class App extends Component {
     });
   };
 
-  deleteContact = delId => {
+  deleteContact = (e, delId) => {
     // console.log(delId);
+
+    // setTimeout(() => {
+    //   console.log(e.target);
+    // }, 1000);
 
     this.setState(prevState => {
       return {
@@ -62,9 +74,13 @@ export class App extends Component {
 
   render() {
     return (
-      <div>
+      <CssApp.Contener>
+        <GlobalStyle />
         <h1>Phonebook</h1>
-        <ContactForm onSubmit={this.formSubmitHandler} />
+        <ContactForm
+          onSubmit={this.formSubmitHandler}
+          checkContacts={this.checkContacts}
+        />
         <h2>Contacts</h2>
         <Filter
           value={this.state.filter}
@@ -74,7 +90,7 @@ export class App extends Component {
           contact={this.getFilteringContacts()}
           onDelete={this.deleteContact}
         />
-      </div>
+      </CssApp.Contener>
     );
   }
 }

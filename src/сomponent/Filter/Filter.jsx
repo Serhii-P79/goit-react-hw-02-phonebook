@@ -1,14 +1,23 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import { CssForm } from 'сomponent';
 
 export function Filter({ value, handleChangeFiltrContacts }) {
   return (
-    <label>
-      Find contacts by name
-      <input
-        type="text"
-        value={value}
-        onChange={handleChangeFiltrContacts}
-      ></input>
-    </label>
+    <div>
+      <CssForm.Label>
+        <span>Find contacts by name</span>
+        <input
+          type="text"
+          value={value}
+          onChange={handleChangeFiltrContacts}
+        ></input>
+      </CssForm.Label>
+    </div>
   );
 }
+
+Filter.protoType = {
+  value: PropTypes.string.isRequired,
+  handleChangeFiltrContacts: PropTypes.func.isRequired,
+};
