@@ -17,7 +17,7 @@ export function Filter({ value, handleChangeFiltrContacts }) {
   );
 }
 
-Filter.protoType = {
+Filter.propTypes = {
   value: PropTypes.string.isRequired,
   handleChangeFiltrContacts: PropTypes.func.isRequired,
 };
