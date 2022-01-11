@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { CssContactList } from 'сomponent';
 
 export function ContactItem({ name, number, children }) {
-  console.log(children);
+  // console.log(children);
   return (
     <CssContactList.Contact>
       <CssContactList.Name>{name}:</CssContactList.Name> tel:
