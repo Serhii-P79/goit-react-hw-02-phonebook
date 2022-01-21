@@ -14,34 +14,38 @@ export class App extends Component {
     filter: '',
   };
 
-  checkContacts = nameForm => {
-    if (this.state.contacts.some(({ name }) => name === nameForm)) {
-      // alert(`${this.state.name} is already in contacts`);
-      return true;
-    }
-  };
+  // checkContacts = nameForm => {
+  //   if (this.state.contacts.some(({ name }) => name === nameForm)) {
+  //     // alert(`${this.state.name} is already in contacts`);
+  //     return true;
+  //   }
+  //   return false;
+  // };
 
   formSubmitHandler = data => {
-    if (
-      this.state.contacts.some(({ name }) =>
-        name.toLowerCase().includes(data.name.toLowerCase()),
-      )
-    ) {
-      alert(`${data.name} is already in contacts.`);
-      return false;
-    }
+    return new Promise((resolve, reject) => {
+      if (
+        this.state.contacts.some(({ name }) =>
+          name.toLowerCase().includes(data.name.toLowerCase()),
+        )
+      ) {
+        alert(`${data.name} is already in contacts.`);
+        reject('Error! Error passed to reject function');
+      }
 
-    this.setState(({ contacts }) => {
-      return {
-        contacts: [
-          ...contacts,
-          {
-            id: nanoid(),
-            name: data.name,
-            number: data.number,
-          },
-        ],
-      };
+      this.setState(({ contacts }) => {
+        return {
+          contacts: [
+            ...contacts,
+            {
+              id: nanoid(),
+              name: data.name,
+              number: data.number,
+            },
+          ],
+        };
+      });
+      resolve('Ok');
     });
   };
 
@@ -77,10 +81,7 @@ export class App extends Component {
       <CssApp.Contener>
         <GlobalStyle />
         <h1>Phonebook</h1>
-        <ContactForm
-          onSubmit={this.formSubmitHandler}
-          checkContacts={this.checkContacts}
-        />
+        <ContactForm onSubmit={this.formSubmitHandler} />
         <h2>Contacts</h2>
         <Filter
           value={this.state.filter}

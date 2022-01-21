@@ -20,8 +20,15 @@ export class ContactForm extends Component {
 
   addContact = e => {
     e.preventDefault();
-    this.props.onSubmit(this.state);
-    !this.props.checkContacts(this.state.name) && this.reset();
+    this.props
+      .onSubmit(this.state)
+      .then(() => {
+        //  console.log(rrr);
+        this.reset();
+      })
+      .catch(error => {
+        console.log(error);
+      });
   };
 
   reset = () => {
